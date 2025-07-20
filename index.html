@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Futebol Ao Vivo</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-4">Partidas Ao Vivo</h1>
+    <div id="matches" class="space-y-4"></div>
+  </div>
+  <script>
+    async function fetchMatches() {
+      const res = await fetch("/api/live-matches");
+      const data = await res.json();
+      const container = document.getElementById("matches");
+      container.innerHTML = "";
+      data.forEach(match => {
+        const el = document.createElement("div");
+        el.className = "bg-white p-4 shadow rounded";
+        el.innerHTML = \`
+          <h2 class="text-xl font-semibold">\${match.campeonato.nome}</h2>
+          <p>\${match.time_mandante.nome_popular} x \${match.time_visitante.nome_popular}</p>
+          <p><strong>Placar:</strong> \${match.placar}</p>
+        \`;
+        container.appendChild(el);
+      });
+    }
+    fetchMatches();
+    setInterval(fetchMatches, 60000); // atualiza a cada minuto
+  </script>
+</body>
+</html>

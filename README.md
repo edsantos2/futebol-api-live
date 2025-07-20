@@ -1,3 +1,3 @@
-# futebol-api-live
+# Projeto Futebol Ao Vivo
 
-Projeto com API de Futebol em tempo real com estatísticas, alertas e painel admin"
+Backend com Flask + Frontend estático com Tailwind exibindo partidas ao vivo via API.
